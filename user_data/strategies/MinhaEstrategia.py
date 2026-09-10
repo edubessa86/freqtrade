@@ -3,7 +3,6 @@ import numpy as np
 import pandas as pd
 from pandas import DataFrame
 from freqtrade.strategy import IStrategy
-import talib.abstract as ta
 
 class MinhaEstrategia(IStrategy):
     INTERFACE_VERSION = 3
@@ -21,9 +20,16 @@ class MinhaEstrategia(IStrategy):
     startup_candle_count: int = 30
 
     def populate_indicators(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
-        dataframe['rsi'] = ta.RSI(dataframe, timeperiod=14)
-        dataframe['ema_fast'] = ta.EMA(dataframe, timeperiod=50)
-        dataframe['ema_slow'] = ta.EMA(dataframe, timeperiod=200)
+        # Cálculo do RSI via Pandas puro (sem dependência C do TA-Lib)
+        delta = dataframe['close'].diff()
+        gain = (delta.where(delta > 0, 0)).rolling(window=14).mean()
+        loss = (-delta.where(delta < 0, 0)).rolling(window=14).mean()
+        rs = gain / loss
+        dataframe['rsi'] = 100 - (100 / (1 + rs))
+
+        # Médias móveis exponenciais (EMA) via Pandas
+        dataframe['ema_fast'] = dataframe['close'].ewm(span=50, adjust=False).mean()
+        dataframe['ema_slow'] = dataframe['close'].ewm(span=200, adjust=False).mean()
         return dataframe
 
     def populate_entry_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
