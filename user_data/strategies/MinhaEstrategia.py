@@ -5,7 +5,7 @@ from pandas import DataFrame
 from freqtrade.strategy import IStrategy
 import talib.abstract as ta
 
-class MinhaEstratégia(IStrategy):
+class MinhaEstrategia(IStrategy):
     INTERFACE_VERSION = 3
 
     minimal_roi = {
