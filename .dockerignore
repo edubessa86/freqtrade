@@ -29,7 +29,6 @@ freqtrade.egg-info
 *.sh
 *.ps1
 
-config.json*
 *.sqlite
 user_data/
 *.log
