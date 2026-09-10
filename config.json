@@ -12,5 +12,13 @@
     "secret": "",
     "sandbox": true
   },
-  "strategy": "MinhaEstrategia"
+  "strategy": "MinhaEstrategia",
+  "api_server": {
+    "enabled": true,
+    "listen_ip_address": "0.0.0.0",
+    "listen_port": 8080,
+    "username": "seu_usuario_web",
+    "password": "sua_senha_web_segura",
+    "jwt_secret_key": "sua_chave_jwt_aleatoria_e_bem_longa_aqui"
+  }
 }
