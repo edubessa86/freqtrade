@@ -7,6 +7,7 @@
   "timeframe": "5m",
   "dry_run": true,
   "dry_run_wallet": 1000,
+  "strategy": "MinhaEstratégia",
   "exchange": {
     "name": "kraken",
     "key": "",
