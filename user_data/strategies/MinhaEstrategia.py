@@ -17,7 +17,9 @@ class MinhaEstrategia(IStrategy):
 
     timeframe = '5m'
 
-    startup_candle_count: int = 30
+    # Precisa cobrir o período da EMA mais longa (span=200) + margem de
+    # segurança, senão a ema_slow começa "torta" por falta de histórico.
+    startup_candle_count: int = 210
 
     def populate_indicators(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
         # Cálculo do RSI via Pandas puro (sem dependência C do TA-Lib)
@@ -35,7 +37,8 @@ class MinhaEstrategia(IStrategy):
     def populate_entry_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
         dataframe.loc[
             (
-                (dataframe['rsi'] < 30) &
+                (dataframe['rsi'] < 30) &                      # sobrevendido
+                (dataframe['ema_fast'] > dataframe['ema_slow']) &  # só compra na tendência de alta
                 (dataframe['volume'] > 0)
             ),
             'enter_long'] = 1
@@ -44,7 +47,10 @@ class MinhaEstrategia(IStrategy):
     def populate_exit_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
         dataframe.loc[
             (
-                (dataframe['rsi'] > 70) &
+                (
+                    (dataframe['rsi'] > 70) |                      # sobrecomprado
+                    (dataframe['ema_fast'] < dataframe['ema_slow'])  # ou a tendência virou pra baixo
+                ) &
                 (dataframe['volume'] > 0)
             ),
             'exit_long'] = 1
