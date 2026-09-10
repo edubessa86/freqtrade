@@ -1,0 +1,16 @@
+{
+  "max_open_trades": 2,
+  "stake_currency": "USDT",
+  "stake_amount": "unlimited",
+  "tradable_pair_whitelist": [
+    "BTC/USDT",
+    "ETH/USDT"
+  ],
+  "exchange": {
+    "name": "binance",
+    "key": "",
+    "secret": "",
+    "sandbox": true
+  },
+  "strategy": "MinhaEstrategia"
+}
