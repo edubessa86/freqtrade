@@ -8,7 +8,7 @@
   "dry_run": true,
   "dry_run_wallet": 1000,
   "exchange": {
-    "name": "binance",
+    "name": "kraken",
     "key": "",
     "secret": "",
     "pair_whitelist": [
