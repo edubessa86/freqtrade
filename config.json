@@ -3,16 +3,21 @@
   "stake_currency": "USDT",
   "stake_amount": "unlimited",
   "tradable_balance_ratio": 0.99,
-  "fiat_currency": "BRL",
+  "fiat_display_currency": "USD",
   "timeframe": "5m",
-  "dry_run": true,
+  "dry_run": false,
   "dry_run_wallet": 1000,
-  "strategy": "MinhaEstrategia",
+  "cancel_open_orders_on_exit": false,
+  "trading_mode": "spot",
+  "margin_mode": "",
+  "user_data_dir": "/freqtrade/user_data",
   "exchange": {
-    "name": "kucoin",
+    "name": "eduardobc1986",
     "key": "6aa44ebf2c600e00012de1eb",
     "secret": "792b4709-1d7a-4854-98a8-75ef54e7b12b",
     "password": "Edu86K@88",
+    "ccxt_config": {},
+    "ccxt_async_config": {},
     "pair_whitelist": [
       "BTC/USDT",
       "ETH/USDT",
@@ -22,36 +27,30 @@
       "AVAX/USDT",
       "LINK/USDT",
       "DOGE/USDT",
-      "DOT/USDT",
-      "MATIC/USDT"
+      "DOT/USDT"
     ],
     "pair_blacklist": []
   },
   "pairlists": [
-    {"method": "StaticPairList"}
+    {
+      "method": "StaticPairList"
+    }
   ],
-  "entry_pricing": {
-    "price_side": "same",
-    "use_order_book": true,
-    "order_book_top": 1,
-    "price_last_balance": 0.0
-  },
-  "exit_pricing": {
-    "price_side": "same",
-    "use_order_book": true,
-    "order_book_top": 1,
-    "price_last_balance": 0.0
+  "telegram": {
+    "enabled": false,
+    "token": "",
+    "chat_id": ""
   },
   "api_server": {
     "enabled": true,
     "listen_ip_address": "0.0.0.0",
     "listen_port": 8080,
+    "verbosity": "info",
+    "jwt_secret_key": "seu_jwt_secret_aqui",
+    "CORS_origins": [
+      "*"
+    ],
     "username": "meu_admin_bot",
-    "password": "Edu86K@88",
-    "jwt_secret_key": "4f8c9b2a1e4d3c5f6a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f"
-  },
-  "bot_name": "freqtrade_bot",
-  "initial_state": "running",
-  "run_mode": "dry_run",
-  "db_url": "sqlite:///tradesv3.sqlite"
+    "password": "Edu86K@88"
+  }
 }
