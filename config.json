@@ -1,15 +1,15 @@
 {
   "max_open_trades": 3,
-  "stake_currency": "USDT",
+  "stake_currency": "BRL",
   "stake_amount": "unlimited",
   "tradable_balance_ratio": 0.99,
-  "fiat_currency": "USD",
+  "fiat_currency": "BRL",
   "timeframe": "5m",
   "dry_run": true,
-  "dry_run_wallet": 1000,
+  "dry_run_wallet": 5000,
   "strategy": "MinhaEstrategia",
   "exchange": {
-    "name": "kraken",
+    "name": "binance",
     "key": "",
     "secret": "",
     "pair_whitelist": [
@@ -46,7 +46,7 @@
     "listen_ip_address": "0.0.0.0",
     "listen_port": 8080,
     "username": "meu_admin_bot",
-    "password": "Br@sil@2026",
+    "password": "Edu86K@88",
     "jwt_secret_key": "4f8c9b2a1e4d3c5f6a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f"
   },
   "bot_name": "freqtrade_bot",
