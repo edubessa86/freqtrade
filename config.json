@@ -18,6 +18,9 @@
     ],
     "pair_blacklist": []
   },
+  "pairlists": [
+    {"method": "StaticPairList"}
+  ],
   "entry_pricing": {
     "price_side": "same",
     "use_order_book": true,
@@ -32,8 +35,8 @@
   },
   "api_server": {
     "enabled": true,
-    "bind_ip": "0.0.0.0",
-    "bind_port": 8080,
+    "listen_ip_address": "0.0.0.0",
+    "listen_port": 8080,
     "username": "meu_admin_bot",
     "password": "RoboTrade#2026_Seguro!",
     "jwt_secret_key": "4f8c9b2a1e4d3c5f6a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f"
