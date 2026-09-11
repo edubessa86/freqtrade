@@ -13,8 +13,16 @@
     "key": "",
     "secret": "",
     "pair_whitelist": [
-      "BTC/USDT",
-      "ETH/USDT"
+      "BTC/BRL",
+      "ETH/BRL",
+      "SOL/BRL",
+      "USDT/BRL",
+      "XRP/BRL",
+      "ADA/BRL",
+      "AVAX/BRL",
+      "LINK/BRL",
+      "DOGE/BRL",
+      "BNB/BRL"
     ],
     "pair_blacklist": []
   },
@@ -38,11 +46,11 @@
     "listen_ip_address": "0.0.0.0",
     "listen_port": 8080,
     "username": "meu_admin_bot",
-    "password": "Edu86K@88",
+    "password": "Br@sil@2026",
     "jwt_secret_key": "4f8c9b2a1e4d3c5f6a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f"
   },
   "bot_name": "freqtrade_bot",
   "initial_state": "running",
-  "run_mode": "live",
+  "run_mode": "dry_run",
   "db_url": "sqlite:///tradesv3.sqlite"
 }
