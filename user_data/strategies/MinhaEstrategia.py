@@ -1,8 +1,6 @@
-# pragma pylint: disable=invalid-name, missing-docstring
-import numpy as np
-import pandas as pd
-from pandas import DataFrame
 from freqtrade.strategy import IStrategy
+from pandas import DataFrame
+import talib.abstract as ta
 
 class MinhaEstrategia(IStrategy):
     INTERFACE_VERSION = 3
@@ -13,33 +11,26 @@ class MinhaEstrategia(IStrategy):
         "60": 0.01
     }
 
-    stoploss = -0.10
+    stoploss = -0.1
 
     timeframe = '5m'
 
-    # Precisa cobrir o período da EMA mais longa (span=200) + margem de
-    # segurança, senão a ema_slow começa "torta" por falta de histórico.
+    use_exit_signal = True
+    exit_profit_only = False
+    ignore_roi_if_entry_signal = False
+
     startup_candle_count: int = 210
 
     def populate_indicators(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
-        # Cálculo do RSI via Pandas puro (sem dependência C do TA-Lib)
-        delta = dataframe['close'].diff()
-        gain = (delta.where(delta > 0, 0)).rolling(window=14).mean()
-        loss = (-delta.where(delta < 0, 0)).rolling(window=14).mean()
-        rs = gain / loss
-        dataframe['rsi'] = 100 - (100 / (1 + rs))
-
-        # Médias móveis exponenciais (EMA) via Pandas
-        dataframe['ema_fast'] = dataframe['close'].ewm(span=50, adjust=False).mean()
-        dataframe['ema_slow'] = dataframe['close'].ewm(span=200, adjust=False).mean()
+        dataframe['rsi'] = ta.RSI(dataframe, timeperiod=14)
+        dataframe['sma_200'] = ta.SMA(dataframe, timeperiod=200)
         return dataframe
 
     def populate_entry_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
         dataframe.loc[
             (
-                (dataframe['rsi'] < 30) &                      # sobrevendido
-                (dataframe['ema_fast'] > dataframe['ema_slow']) &  # só compra na tendência de alta
-                (dataframe['volume'] > 0)
+                (dataframe['rsi'] < 30) &
+                (dataframe['close'] > dataframe['sma_200'])
             ),
             'enter_long'] = 1
         return dataframe
@@ -47,11 +38,7 @@ class MinhaEstrategia(IStrategy):
     def populate_exit_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
         dataframe.loc[
             (
-                (
-                    (dataframe['rsi'] > 70) |                      # sobrecomprado
-                    (dataframe['ema_fast'] < dataframe['ema_slow'])  # ou a tendência virou pra baixo
-                ) &
-                (dataframe['volume'] > 0)
+                (dataframe['rsi'] > 70)
             ),
             'exit_long'] = 1
         return dataframe
